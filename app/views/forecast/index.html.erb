@@ -1,0 +1,28 @@
+<h1>Weather Forecast</h1>
+
+<%= form_tag(forecast_path, method: :get) do %>
+  <div class="form-group">
+    <%= label_tag :address, 'Enter an address:' %>
+    <%= text_field_tag :address, @address, class: 'form-control' %>
+  </div>
+  <%= submit_tag 'Get Weather', class: 'btn btn-primary' %>
+<% end %>
+
+<% if @current_temperature.present? %>
+  <div class="weather-info">
+    <h3>Current Temperature: <%= @current_temperature %> °C</h3>
+    <h4>High Temperature: <%= @high_temperature %> °C</h4>
+    <h4>Low Temperature: <%= @low_temperature %> °C</h4>
+    <% if @from_cache %>
+      <p class="text-muted">Data from cache</p>
+    <% else %>
+      <p class="text-muted">Data fetched from API</p>
+    <% end %>
+  </div>
+<% end %>
+
+<% if flash[:alert].present? %>
+  <div class="alert alert-danger">
+    <%= flash[:alert] %>
+  </div>
+<% end %>
