@@ -6,9 +6,7 @@ class ForecastController < ApplicationController
     weather_data = ForecastService.new(@address).get_weather_data
 
     if weather_data.present?
-      @current_temperature = weather_data['main']['temp']
-      @high_temperature = weather_data['main']['temp_max']
-      @low_temperature = weather_data['main']['temp_min']
+      set_weather_data(weather_data)
       @from_cache = cached_weather_data?(@address)
     else
       flash[:alert] = 'Unable to fetch weather data for the given address.'
